@@ -1,0 +1,6 @@
+cmake_minimum_required(VERSION 3.22)
+project(compiler_v1 C)
+set(CMAKE_C_STANDARD 99)
+add_executable(${PROJECT_NAME} bin/main.c)
+execute_process(COMMAND rm "lex.yy.c" WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/flex_analyse)
+execute_process(COMMAND flex "cmm.lex" WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/flex_analyse)
