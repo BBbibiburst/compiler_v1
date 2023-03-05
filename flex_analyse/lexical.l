@@ -7,8 +7,14 @@
     int flex_error = 0;
 %}
 %option yylineno
-INT [1-9][0-9]*|0[1-7][0-7]*|0(X|x)[1-9a-fA-F][0-9a-fA-F]*|0(X|x)0|00|0
+DEC [1-9][0-9]*|0
+OCT 0[1-7][0-7]*|00
+HEX 0(X|x)[1-9a-fA-F][0-9a-fA-F]*|0(X|x)0
+INT {DEC}|{OCT}|{HEX}
+OCT_ERROR 0[0-9]*
+HEX_ERROR 0(x|X)[0-9A-Za-z]*
 FLOAT [0-9]*\.[0-9]*((E|e)(\+|-)?[0-9]+)?
+FLOAT_ERROR [0-9]*\.[0-9]*((E|e)(\+|-)?)
 ID [A-Za-z_][A-Za-z_0-9]*
 SEMI    ;
 COMMA   ,
@@ -34,6 +40,9 @@ RETURN  "return"
 IF  "if"
 ELSE    "else"
 WHILE   "while"
+LINE_ANNOTATION \/\/[^\n]*\n
+MULTI_ANNOTATION \/\*([^\*]|\*[^\/])*\*\/
+ANNOTATION {LINE_ANNOTATION}|{MULTI_ANNOTATION}
 BLANK [ \t\n]+
 %%
 {INT} {printf("INT:\t\t%s\t\t%d\n",yytext,yylineno);}
@@ -63,7 +72,12 @@ BLANK [ \t\n]+
 {ELSE} {printf("ELSE:\t\t%s\t\t%d\n",yytext,yylineno);}
 {WHILE} {printf("WHILE:\t\t%s\t\t%d\n",yytext,yylineno);}
 {ID} {printf("ID:\t\t%s\t\t%d\n",yytext,yylineno);}
+{OCT_ERROR} {printf("Error type A at Line %d: Illegal octal number \'%s\'\n",yylineno, yytext);}
+{HEX_ERROR} {printf("Error type A at Line %d: Illegal hexadecimal number \'%s\'\n",yylineno, yytext);}
+{FLOAT_ERROR} {printf("Error type A at Line %d: Illegal hexadecimal number \'%s\'\n",yylineno, yytext);}
 {BLANK} {}
+{ANNOTATION} {}
+. {printf("Error type A at Line %d:  Illegal floating point number \'%s\'\n",yylineno, yytext);}
 %%
 //辅助函数部分
 void flex_analyse(FILE *fp){
