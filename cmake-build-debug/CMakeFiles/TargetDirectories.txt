@@ -1,3 +1,0 @@
-E:/pdf/PPT/编译系统/LAB1/cmake-build-debug/CMakeFiles/compiler_v1.dir
-E:/pdf/PPT/编译系统/LAB1/cmake-build-debug/CMakeFiles/edit_cache.dir
-E:/pdf/PPT/编译系统/LAB1/cmake-build-debug/CMakeFiles/rebuild_cache.dir
