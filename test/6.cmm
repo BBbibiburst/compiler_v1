@@ -3,3 +3,8 @@ int main()
 	int i = 09;
 	int j = 0x3G;
 }
+
+//Error type B at Line 3: Missing ";".
+//Error type B at Line 4: Missing ";". 或
+//Error type A at Line 3: Illegal octal number '09'.
+//Error type A at Line 4: Illegal hexadecimal number '0x3G'.

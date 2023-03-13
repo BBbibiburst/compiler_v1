@@ -8,3 +8,4 @@ int main()
 	*/
 	int i = 1;
 }
+//Error type B at Line 8: Syntax error.

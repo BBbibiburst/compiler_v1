@@ -19,11 +19,14 @@ struct Node{
     int child_num;
     struct Node** childList;
 };
-node_val val(char* lexical_name,int val,int location);
+node_val val(char* lexical_name,char* val,int location);
 typedef struct Node TreeNode;
 typedef TreeNode* Tree;
 Tree CreateTreeNode(node_val val);
 void AddChild(Tree root,Tree child);
 void PrintTreeNodeMessage(Tree root,int col);
 void PreorderTraversal(Tree root,int col);
+int IntegerParser(char* str);
+int OctParser(char* str);
+int HexParser(char* str);
 

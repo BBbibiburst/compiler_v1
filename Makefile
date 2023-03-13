@@ -1,5 +1,5 @@
 parser.exe:main.c lex.yy.c syntax.tab.c Tree.c
-	gcc main.c syntax.tab.c Tree.c -lfl -o parser.exe -w
+	gcc main.c syntax.tab.c Tree.c -lfl -o parser.exe
 lex.yy.c:lexical.l
 	flex lexical.l
 syntax.tab.c syntax.tab.h:syntax.y

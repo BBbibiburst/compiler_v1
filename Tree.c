@@ -9,10 +9,10 @@ int is_terminal_symbol(char* str){
     }
     return 1;
 }
-node_val val(char* lexical_name,int val,int location){
+node_val val(char* lexical_name,char* val,int location){
     node_val nodeVal;
     nodeVal.lexical_name = lexical_name;
-    nodeVal.val.type_int = val;
+    nodeVal.val.type_string = val;
     nodeVal.location = location;
     return nodeVal;
 }
@@ -61,4 +61,44 @@ void PreorderTraversal(Tree root,int col){
             PreorderTraversal(root->childList[i],col+1);
         }
     }
+}
+int HexParser(char* str){
+    int res = 0;
+    int i = 2;
+    while(str[i]!='\0'){
+        res*=16;
+        if(str[i]>='0'&&str[i]<='9'){
+            res+=str[i]-'0';
+        }
+        else if(str[i]>='a'&&str[i]<='f'){
+            res+=str[i]-'a' + 10;
+        }
+        else if(str[i]>='A'&&str[i]<='F'){
+            res+=str[i]-'A'+ 10;
+        }
+        i++;
+    }
+    return res;
+}
+int OctParser(char* str){
+    int res = 0;
+    int i = 1;
+    while(str[i]!='\0'){
+        res*=8;
+        res+=str[i]-'0';
+        i++;
+    }
+    return res;
+}
+int IntegerParser(char* str){
+    int str_len = strlen(str);
+    if(str_len>1&&str[0]=='0'){
+        if(str[1]=='x'||str[1]=='X'){
+            return HexParser(str);
+        }
+        else{
+            return OctParser(str);
+        }
+    }
+    return atoi(str);
 }
